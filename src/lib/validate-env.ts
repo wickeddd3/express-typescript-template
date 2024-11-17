@@ -5,7 +5,8 @@ export const validateEnv = (): void => {
     NODE_ENV: str({
       choices: ["development", "production"],
     }),
-    MONGO_URL: str(),
     PORT: port({ default: 3000 }),
+    DATABASE_URL: str(),
+    APP_URL: str(),
   });
 };
