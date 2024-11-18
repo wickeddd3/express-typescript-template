@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import Controller from "@/interfaces/controller.interface";
 import HttpException from "@/exceptions/http.exception";
 import validationMiddleware from "@/middlewares/validation.middleware";
-import { userSchema } from "@/schemas/user.schema";
+import { categorySchema } from "@/schemas/category.schema";
 import { CategoriesService } from "@/services/categories.service";
 
 export class CategoriesController implements Controller {
@@ -78,7 +78,7 @@ export class CategoriesController implements Controller {
      *       400:
      *         description: Invalid input
      */
-    this.router.post(`${this.path}`, validationMiddleware(userSchema), this.create);
+    this.router.post(`${this.path}`, validationMiddleware(categorySchema), this.create);
     /**
      * @swagger
      * /api/categories/{id}:
@@ -134,7 +134,7 @@ export class CategoriesController implements Controller {
      *       400:
      *         description: Invalid input
      */
-    this.router.put(`${this.path}/:id`, validationMiddleware(userSchema), this.update);
+    this.router.put(`${this.path}/:id`, validationMiddleware(categorySchema), this.update);
     /**
      * @swagger
      * /api/categories/{id}:
