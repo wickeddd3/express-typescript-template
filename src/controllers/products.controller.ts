@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from "express";
 import Controller from "@/interfaces/controller.interface";
 import HttpException from "@/exceptions/http.exception";
 import validationMiddleware from "@/middlewares/validation.middleware";
-import { userSchema } from "@/schemas/user.schema";
+import { productSchema } from "@/schemas/product.schema";
 import { ProductsService } from "@/services/products.service";
 
 export class ProductsController implements Controller {
@@ -78,7 +78,7 @@ export class ProductsController implements Controller {
      *       400:
      *         description: Invalid input
      */
-    this.router.post(`${this.path}`, validationMiddleware(userSchema), this.create);
+    this.router.post(`${this.path}`, validationMiddleware(productSchema), this.create);
     /**
      * @swagger
      * /api/products/{id}:
@@ -134,7 +134,7 @@ export class ProductsController implements Controller {
      *       400:
      *         description: Invalid input
      */
-    this.router.put(`${this.path}/:id`, validationMiddleware(userSchema), this.update);
+    this.router.put(`${this.path}/:id`, validationMiddleware(productSchema), this.update);
     /**
      * @swagger
      * /api/products/{id}:
