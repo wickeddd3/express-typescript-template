@@ -38,10 +38,10 @@ export class ProductsRepository {
     }
   }
 
-  public async create(productData: ProductSchemaType): Promise<Product | Error> {
+  public async create(data: ProductSchemaType): Promise<Product | Error> {
     try {
       const product = await this.db.product.create({
-        data: { ...productData },
+        data: { ...data },
       });
       return product as Product;
     } catch (error: any) {
