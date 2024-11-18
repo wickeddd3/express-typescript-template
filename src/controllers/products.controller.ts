@@ -5,7 +5,7 @@ import validationMiddleware from "@/middlewares/validation.middleware";
 import { userSchema } from "@/schemas/user.schema";
 import { ProductsService } from "@/services/products.service";
 
-class ProductsController implements Controller {
+export class ProductsController implements Controller {
   public path = "/products";
   public router = Router();
   private productsService = new ProductsService();
@@ -214,5 +214,3 @@ class ProductsController implements Controller {
     }
   };
 }
-
-export default ProductsController;

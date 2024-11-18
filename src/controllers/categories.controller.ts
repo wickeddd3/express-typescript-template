@@ -5,7 +5,7 @@ import validationMiddleware from "@/middlewares/validation.middleware";
 import { userSchema } from "@/schemas/user.schema";
 import { CategoriesService } from "@/services/categories.service";
 
-class CategoriesController implements Controller {
+export class CategoriesController implements Controller {
   public path = "/categories";
   public router = Router();
   private categoriesService = new CategoriesService();
@@ -214,5 +214,3 @@ class CategoriesController implements Controller {
     }
   };
 }
-
-export default CategoriesController;
