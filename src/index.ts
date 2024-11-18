@@ -1,9 +1,9 @@
 import "dotenv/config";
 import "module-alias/register";
 import { validateEnv } from "@/lib/validate-env";
-import App from "@/app";
-import ProductsController from "@/controllers/products.controller";
-import CategoriesController from "@/controllers/categories.controller";
+import { App } from "@/app";
+import { ProductsController } from "@/controllers/products.controller";
+import { CategoriesController } from "@/controllers/categories.controller";
 
 validateEnv();
 
