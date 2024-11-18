@@ -54,7 +54,7 @@ model Product {
   barcode                           String?
   price                             Decimal           @default(0)
   category                          Category          @relation(fields: [categoryId], references: [id])
-  categoryId                        Int               @unique
+  categoryId                        Int
 
   @@map("products")
 }
