@@ -15,10 +15,145 @@ class ProductsController implements Controller {
   }
 
   private initialiseRoutes(): void {
+    /**
+     * @swagger
+     * /api/products:
+     *   get:
+     *     summary: Get all products
+     *     tags: [Products]
+     *     parameters:
+     *       - in: query
+     *         name: size
+     *         schema:
+     *           type: integer
+     *         description: Number of items per page
+     *       - in: query
+     *         name: page
+     *         schema:
+     *           type: integer
+     *         description: Page number
+     *       - in: query
+     *         name: orderBy
+     *         schema:
+     *           type: string
+     *         description: Field to sort by
+     *       - in: query
+     *         name: order
+     *         schema:
+     *           type: string
+     *           enum: [asc, desc]
+     *         description: Sort order
+     *     responses:
+     *       200:
+     *         description: List of products
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: array
+     *               items:
+     *                 $ref: '#/components/schemas/Product'
+     *       500:
+     *         description: Server error
+     */
     this.router.get(`${this.path}`, this.list);
+    /**
+     * @swagger
+     * /api/products:
+     *   post:
+     *     summary: Create a new product
+     *     tags: [Products]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Product'
+     *     responses:
+     *       201:
+     *         description: Product created successfully
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Product'
+     *       400:
+     *         description: Invalid input
+     */
     this.router.post(`${this.path}`, validationMiddleware(userSchema), this.create);
+    /**
+     * @swagger
+     * /api/products/{id}:
+     *   get:
+     *     summary: Get a product by ID
+     *     tags: [Products]
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: Product ID
+     *     responses:
+     *       200:
+     *         description: Product details
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Product'
+     *       404:
+     *         description: Product not found
+     */
     this.router.get(`${this.path}/:id`, this.get);
+    /**
+     * @swagger
+     * /api/products/{id}:
+     *   put:
+     *     summary: Update a product by ID
+     *     tags: [Products]
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: Product ID
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/Product'
+     *     responses:
+     *       200:
+     *         description: Product updated successfully
+     *         content:
+     *           application/json:
+     *             schema:
+     *               $ref: '#/components/schemas/Product'
+     *       404:
+     *         description: Product not found
+     *       400:
+     *         description: Invalid input
+     */
     this.router.put(`${this.path}/:id`, validationMiddleware(userSchema), this.update);
+    /**
+     * @swagger
+     * /api/products/{id}:
+     *   delete:
+     *     summary: Delete a product by ID
+     *     tags: [Products]
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: Product ID
+     *     responses:
+     *       200:
+     *         description: Product deleted successfully
+     *       404:
+     *         description: Product not found
+     */
     this.router.delete(`${this.path}/:id`, this.delete);
   }
 
