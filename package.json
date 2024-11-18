@@ -24,6 +24,8 @@
     "module-alias": "^2.2.3",
     "morgan": "^1.10.0",
     "prisma": "^5.22.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -32,6 +34,8 @@
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.9.0",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.7",
     "tsc-watch": "^6.2.1",
     "typescript": "^5.6.3"
   },
