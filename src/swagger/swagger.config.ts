@@ -21,6 +21,47 @@ const swaggerOptions: Options = {
         description: "Development app",
       },
     ],
+    components: {
+      schemas: {
+        Product: {
+          type: "object",
+          properties: {
+            id: {
+              type: "integer",
+              description: "Product ID",
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+              description: "Product creation timestamp",
+            },
+            updatedAt: {
+              type: "string",
+              format: "date-time",
+              description: "Product last update timestamp",
+            },
+            name: {
+              type: "string",
+              description: "Product name",
+            },
+            slug: {
+              type: "string",
+              description: "Product slug (unique identifier)",
+            },
+            price: {
+              type: "number",
+              format: "decimal",
+              description: "Product price",
+            },
+            categoryId: {
+              type: "integer",
+              description: "Category ID the product belongs to",
+            },
+          },
+          required: ["name", "slug", "price", "categoryId"],
+        },
+      },
+    },
   },
   apis: ["./src/routes/*.ts", "./src/controllers/*.ts"],
 };
