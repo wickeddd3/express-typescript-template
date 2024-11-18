@@ -9,7 +9,7 @@ import swaggerConfig from "./swagger/swagger.config";
 import Controller from "@/interfaces/controller.interface";
 import ErrorMiddleware from "@/middlewares/error.middleware";
 
-class App {
+export class App {
   public express: Application;
   public port: number;
 
@@ -75,5 +75,3 @@ class App {
     });
   }
 }
-
-export default App;
