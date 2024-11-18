@@ -60,6 +60,30 @@ const swaggerOptions: Options = {
           },
           required: ["name", "slug", "price", "categoryId"],
         },
+        Category: {
+          type: "object",
+          properties: {
+            id: {
+              type: "integer",
+              description: "Category ID",
+            },
+            name: {
+              type: "string",
+              description: "Category name",
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+              description: "Category creation timestamp",
+            },
+            updatedAt: {
+              type: "string",
+              format: "date-time",
+              description: "Category last update timestamp",
+            },
+          },
+          required: ["name"],
+        },
       },
     },
   },
