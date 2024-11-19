@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -19,42 +19,42 @@ enum Role {
 }
 
 model User {
-  id                                Int               @id @default(autoincrement())
-  createdAt                         DateTime          @default(now())
-  updatedAt                         DateTime          @updatedAt
-  role                              Role              @default(ADMIN)
-  email                             String            @unique
-  name                              String
-  password                          String
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(ADMIN)
+  email     String   @unique
+  name      String
+  password  String
 
   @@map("users")
 }
 
 model Category {
-  id                                Int               @id @default(autoincrement())
-  createdAt                         DateTime          @default(now())
-  updatedAt                         DateTime          @updatedAt
-  name                              String
-  description                       String?
-  products                          Product[]
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  name        String
+  description String?
+  products    Product[]
 
   @@map("categories")
 }
 
 model Product {
-  id                                Int               @id @default(autoincrement())
-  createdAt                         DateTime          @default(now())
-  updatedAt                         DateTime          @updatedAt
-  slug                              String            @unique
-  name                              String
-  brand                             String?
-  supplier                          String?
-  model                             String?
-  serialNumber                      String?
-  barcode                           String?
-  price                             Decimal           @default(0)
-  category                          Category          @relation(fields: [categoryId], references: [id])
-  categoryId                        Int
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  slug         String   @unique
+  name         String
+  brand        String?
+  supplier     String?
+  model        String?
+  serialNumber String?
+  barcode      String?
+  price        Decimal  @default(0)
+  category     Category @relation(fields: [categoryId], references: [id])
+  categoryId   Int
 
   @@map("products")
 }
