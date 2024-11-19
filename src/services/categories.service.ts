@@ -1,6 +1,6 @@
-import { CategoriesRepository } from "@/repositories/categories.repository";
-import { CategorySchemaType } from "@/schemas/category.schema";
-import { Category } from "@prisma/client";
+import { CategoriesRepository } from '@/repositories/categories.repository';
+import { CategorySchemaType } from '@/schemas/category.schema';
+import { Category } from '@prisma/client';
 
 export class CategoriesService {
   private categoriesRepository = new CategoriesRepository();

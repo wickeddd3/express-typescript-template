@@ -1,8 +1,8 @@
-import { prisma } from "@/lib/prisma";
-import { ProductSchemaType } from "@/schemas/product.schema";
-import { LIST_QUERY } from "@/constants/list-query";
-import { ListQueryParams } from "@/types/query.type";
-import { Product } from "@prisma/client";
+import { prisma } from '@/lib/prisma';
+import { ProductSchemaType } from '@/schemas/product.schema';
+import { LIST_QUERY } from '@/constants/list-query';
+import { ListQueryParams } from '@/types/query.type';
+import { Product } from '@prisma/client';
 
 export class ProductsRepository {
   private db = prisma;

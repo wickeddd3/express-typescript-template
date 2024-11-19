@@ -1,12 +1,12 @@
-import { Router, Request, Response, NextFunction } from "express";
-import Controller from "@/interfaces/controller.interface";
-import HttpException from "@/exceptions/http.exception";
-import validationMiddleware from "@/middlewares/validation.middleware";
-import { categorySchema } from "@/schemas/category.schema";
-import { CategoriesService } from "@/services/categories.service";
+import { Router, Request, Response, NextFunction } from 'express';
+import Controller from '@/interfaces/controller.interface';
+import HttpException from '@/exceptions/http.exception';
+import validationMiddleware from '@/middlewares/validation.middleware';
+import { categorySchema } from '@/schemas/category.schema';
+import { CategoriesService } from '@/services/categories.service';
 
 export class CategoriesController implements Controller {
-  public path = "/categories";
+  public path = '/categories';
   public router = Router();
   private categoriesService = new CategoriesService();
 
@@ -163,8 +163,8 @@ export class CategoriesController implements Controller {
       const query = {
         take: size || 10,
         skip: page || 0,
-        orderBy: orderyBy || "createdAt",
-        order: order || "desc",
+        orderBy: orderyBy || 'createdAt',
+        order: order || 'desc',
       };
       const categories = await this.categoriesService.list(query);
       res.status(200).json(categories);

@@ -1,6 +1,6 @@
-import { ProductsRepository } from "@/repositories/products.repository";
-import { ProductSchemaType } from "@/schemas/product.schema";
-import { Product } from "@prisma/client";
+import { ProductsRepository } from '@/repositories/products.repository';
+import { ProductSchemaType } from '@/schemas/product.schema';
+import { Product } from '@prisma/client';
 
 export class ProductsService {
   private productsRepository = new ProductsRepository();

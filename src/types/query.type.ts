@@ -1,4 +1,4 @@
-export type Order = "asc" | "desc";
+export type Order = 'asc' | 'desc';
 
 export type ListQueryParams = {
   take: number;

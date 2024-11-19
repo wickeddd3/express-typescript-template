@@ -1,13 +1,13 @@
-import express, { Application } from "express";
-import helmet from "helmet";
-import cors from "cors";
-import morgan from "morgan";
-import compression from "compression";
-import swaggerJsdoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
-import swaggerConfig from "./swagger/swagger.config";
-import Controller from "@/interfaces/controller.interface";
-import ErrorMiddleware from "@/middlewares/error.middleware";
+import express, { Application } from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import morgan from 'morgan';
+import compression from 'compression';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import swaggerConfig from './swagger/swagger.config';
+import Controller from '@/interfaces/controller.interface';
+import ErrorMiddleware from '@/middlewares/error.middleware';
 
 export class App {
   public express: Application;
@@ -26,8 +26,8 @@ export class App {
   private initialiseMiddleware(): void {
     this.express.use(helmet());
     this.configureCors();
-    this.express.use(morgan("dev"));
-    this.express.use(express.json({ limit: "10mb" }));
+    this.express.use(morgan('dev'));
+    this.express.use(express.json({ limit: '10mb' }));
     this.express.use(express.urlencoded({ extended: false }));
     this.express.use(compression());
   }
@@ -38,14 +38,11 @@ export class App {
     const allowedOrigins = [developmentServer, clientApp];
 
     const corsOptions = {
-      origin: (
-        origin: string | undefined,
-        callback: (err: Error | null, allow?: boolean) => void
-      ) => {
+      origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
         if (!origin || allowedOrigins.includes(origin)) {
           callback(null, true); // Allow access
         } else {
-          callback(new Error("Not allowed by CORS")); // Deny access
+          callback(new Error('Not allowed by CORS')); // Deny access
         }
       },
       credentials: true, // Include credentials (cookies, authorization headers, etc.)
@@ -56,7 +53,7 @@ export class App {
 
   private initialiseControllers(controllers: Controller[]): void {
     controllers.forEach((controller: Controller) => {
-      this.express.use("/api", controller.router);
+      this.express.use('/api', controller.router);
     });
   }
 
@@ -66,7 +63,7 @@ export class App {
 
   private initialiseSwagger(): void {
     const specs = swaggerJsdoc(swaggerConfig);
-    this.express.use("/docs", swaggerUi.serve, swaggerUi.setup(specs));
+    this.express.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
   }
 
   public listen(): void {

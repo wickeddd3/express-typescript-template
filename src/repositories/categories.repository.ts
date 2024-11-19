@@ -1,8 +1,8 @@
-import { prisma } from "@/lib/prisma";
-import { CategorySchemaType } from "@/schemas/category.schema";
-import { LIST_QUERY } from "@/constants/list-query";
-import { ListQueryParams } from "@/types/query.type";
-import { Category } from "@prisma/client";
+import { prisma } from '@/lib/prisma';
+import { CategorySchemaType } from '@/schemas/category.schema';
+import { LIST_QUERY } from '@/constants/list-query';
+import { ListQueryParams } from '@/types/query.type';
+import { Category } from '@prisma/client';
 
 export class CategoriesRepository {
   private db = prisma;

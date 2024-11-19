@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
-import { ZodSchema, ZodError } from "zod";
+import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { ZodSchema, ZodError } from 'zod';
 
 function validationMiddleware(schema: ZodSchema): RequestHandler {
   return (req: Request, res: Response, next: NextFunction): void => {
@@ -12,7 +12,7 @@ function validationMiddleware(schema: ZodSchema): RequestHandler {
       if (error instanceof ZodError) {
         // Extract field-specific error messages
         const errors = error.errors.map((err) => ({
-          field: err.path.join("."), // Path to the field with the error
+          field: err.path.join('.'), // Path to the field with the error
           message: err.message, // Specific error message
         }));
         res.status(400).json({ errors }); // Return detailed errors
