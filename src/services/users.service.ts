@@ -16,7 +16,7 @@ export class UsersService {
       // Check if user exist
       const user = await this.usersRepository.getByEmail(email);
       // Throw error if user doesn't exist or if password doesn't match to existing user password
-      if (!user || !(await isPasswordValid(user.password, password))) {
+      if (!user || !(await isPasswordValid(password, user.password))) {
         throw new Error('Invalid email or password');
       }
 
