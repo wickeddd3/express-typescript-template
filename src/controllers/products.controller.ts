@@ -4,6 +4,7 @@ import HttpException from '@/exceptions/http.exception';
 import validationMiddleware from '@/middlewares/validation.middleware';
 import { productSchema } from '@/schemas/product.schema';
 import { ProductsService } from '@/services/products.service';
+import { authenticateJwt } from '@/middlewares/token.middleware';
 
 export class ProductsController implements Controller {
   public path = '/products';
@@ -55,7 +56,7 @@ export class ProductsController implements Controller {
      *       500:
      *         description: Server error
      */
-    this.router.get(`${this.path}`, this.list);
+    this.router.get(`${this.path}`, [authenticateJwt], this.list);
     /**
      * @swagger
      * /api/products:
@@ -78,7 +79,7 @@ export class ProductsController implements Controller {
      *       400:
      *         description: Invalid input
      */
-    this.router.post(`${this.path}`, validationMiddleware(productSchema), this.create);
+    this.router.post(`${this.path}`, [authenticateJwt, validationMiddleware(productSchema)], this.create);
     /**
      * @swagger
      * /api/products/{id}:
@@ -102,7 +103,7 @@ export class ProductsController implements Controller {
      *       404:
      *         description: Product not found
      */
-    this.router.get(`${this.path}/:id`, this.get);
+    this.router.get(`${this.path}/:id`, [authenticateJwt], this.get);
     /**
      * @swagger
      * /api/products/{id}:
@@ -134,7 +135,7 @@ export class ProductsController implements Controller {
      *       400:
      *         description: Invalid input
      */
-    this.router.put(`${this.path}/:id`, validationMiddleware(productSchema), this.update);
+    this.router.put(`${this.path}/:id`, [authenticateJwt, validationMiddleware(productSchema)], this.update);
     /**
      * @swagger
      * /api/products/{id}:
@@ -154,7 +155,7 @@ export class ProductsController implements Controller {
      *       404:
      *         description: Product not found
      */
-    this.router.delete(`${this.path}/:id`, this.delete);
+    this.router.delete(`${this.path}/:id`, [authenticateJwt], this.delete);
   }
 
   private list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
