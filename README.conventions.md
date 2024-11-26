@@ -14,6 +14,7 @@
 - `src/interfaces` - for global interfaces
 - `src/exceptions` - for global exceptions
 - `src/constants` - for constant data
+- `src/config` - for configuration data
 - `src/swagger` - for swagger related files like docs config
 - `src/tests` - for anything tests related like unit and integration tests
   - `src/tests/unit` - for unit tests
