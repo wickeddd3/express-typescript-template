@@ -8,6 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerConfig from './swagger/swagger.config';
 import Controller from '@/interfaces/controller.interface';
 import ErrorMiddleware from '@/middlewares/error.middleware';
+import { initializePassport } from '@/middlewares/token.middleware';
 
 export class App {
   public express: Application;
@@ -30,6 +31,7 @@ export class App {
     this.express.use(express.json({ limit: '10mb' }));
     this.express.use(express.urlencoded({ extended: false }));
     this.express.use(compression());
+    this.express.use(initializePassport());
   }
 
   private configureCors(): void {
