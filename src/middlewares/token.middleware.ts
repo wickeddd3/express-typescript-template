@@ -11,7 +11,7 @@ const options = {
 
 const callback = async (payload: Token, done: VerifiedCallback) => {
   const user = await prisma.user.findUnique({
-    where: { email: payload.email },
+    where: { id: payload.id, email: payload.email },
   });
   if (user) {
     return done(null, user);
