@@ -35,9 +35,9 @@ export class App {
   }
 
   private configureCors(): void {
-    const developmentServer = `http://localhost:${process.env.PORT}`;
-    const clientApp = process.env.APP_URL;
-    const allowedOrigins = [developmentServer, clientApp];
+    const localApp = `http://localhost:${process.env.PORT}`;
+    const productionApp = process.env.APP_URL;
+    const allowedOrigins = process.env.NODE_ENV === 'production' ? [productionApp] : [localApp, productionApp];
 
     const corsOptions = {
       origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
