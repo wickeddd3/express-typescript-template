@@ -5,10 +5,11 @@ import morgan from 'morgan';
 import compression from 'compression';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import swaggerConfig from './swagger/swagger.config';
+import swaggerConfig from '@/swagger/swagger.config';
 import Controller from '@/interfaces/controller.interface';
 import ErrorMiddleware from '@/middlewares/error.middleware';
 import { initializePassport } from '@/middlewares/token.middleware';
+import { allowedOrigins } from '@/config/cors-origins';
 
 export class App {
   public express: Application;
@@ -35,10 +36,6 @@ export class App {
   }
 
   private configureCors(): void {
-    const localApp = `http://localhost:${process.env.PORT}`;
-    const productionApp = process.env.APP_URL;
-    const allowedOrigins = process.env.NODE_ENV === 'production' ? [productionApp] : [localApp, productionApp];
-
     const corsOptions = {
       origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
         if (!origin || allowedOrigins.includes(origin)) {
