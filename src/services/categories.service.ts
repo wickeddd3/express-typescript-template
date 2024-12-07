@@ -1,14 +1,16 @@
 import { CategoriesRepository } from '@/repositories/categories.repository';
 import { CategorySchemaType } from '@/schemas/category.schema';
+import { ListQueryParams } from '@/types/query.type';
 import { Category } from '@prisma/client';
 
 export class CategoriesService {
   private categoriesRepository = new CategoriesRepository();
 
-  public async list(query = {}): Promise<Category[] | Error> {
+  public async list(query: ListQueryParams): Promise<{ data: Category[] | Error; total: number }> {
     try {
-      const categories = await this.categoriesRepository.list();
-      return categories as Category[];
+      const data = await this.categoriesRepository.list(query);
+      const total = await this.categoriesRepository.count();
+      return { data, total };
     } catch (error: any) {
       throw new Error(error.message);
     }

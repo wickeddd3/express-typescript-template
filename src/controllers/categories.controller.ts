@@ -5,6 +5,7 @@ import validationMiddleware from '@/middlewares/validation.middleware';
 import { categorySchema } from '@/schemas/category.schema';
 import { CategoriesService } from '@/services/categories.service';
 import { authenticateJwt } from '@/middlewares/token.middleware';
+import { LIST_QUERY } from '@/constants/list-query';
 
 export class CategoriesController implements Controller {
   public path = '/categories';
@@ -160,15 +161,26 @@ export class CategoriesController implements Controller {
 
   private list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const { size, page, orderyBy, order } = req.query;
+      const { size = 10, page = 1, orderBy = 'createdAt', order = 'desc' } = req.query;
+      const pageSize = parseInt(size as string, 10);
+      const pageNumber = parseInt(page as string, 10) - 1;
       const query = {
-        take: size || 10,
-        skip: page || 0,
-        orderBy: orderyBy || 'createdAt',
-        order: order || 'desc',
+        ...LIST_QUERY,
+        size: pageSize,
+        page: pageNumber * pageSize,
+        orderBy: orderBy as string,
+        order: order as 'asc' | 'desc',
       };
-      const categories = await this.categoriesService.list(query);
-      res.status(200).json(categories);
+      const { data, total } = await this.categoriesService.list(query);
+      res.status(200).json({
+        data,
+        meta: {
+          total,
+          page: parseInt(page as string, 10),
+          size: pageSize,
+          totalPages: Math.ceil(total / pageSize),
+        },
+      });
     } catch (error: any) {
       next(new HttpException(400, error.message));
     }
