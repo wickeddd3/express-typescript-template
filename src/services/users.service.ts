@@ -4,6 +4,7 @@ import { UsersRepository } from '@/repositories/users.repository';
 import { LoginSchemaType } from '@/schemas/login.schema';
 import { UserSchemaType } from '@/schemas/user.schema';
 import { AuthUser } from '@/types/user.type';
+import { ListQueryParams } from '@/types/query.type';
 import { User } from '@prisma/client';
 
 export class UsersService {
@@ -34,9 +35,9 @@ export class UsersService {
     }
   }
 
-  public async list(query = {}): Promise<User[] | Error> {
+  public async list(query: ListQueryParams): Promise<User[] | Error> {
     try {
-      const users = await this.usersRepository.list();
+      const users = await this.usersRepository.list(query);
       return users as User[];
     } catch (error: any) {
       throw new Error(error.message);
