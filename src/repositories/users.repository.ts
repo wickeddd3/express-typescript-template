@@ -1,19 +1,18 @@
 import { prisma } from '@/lib/prisma';
 import { UserSchemaType } from '@/schemas/user.schema';
-import { LIST_QUERY } from '@/constants/list-query';
 import { ListQueryParams } from '@/types/query.type';
 import { User } from '@prisma/client';
 
 export class UsersRepository {
   private db = prisma;
 
-  public async list(query = LIST_QUERY): Promise<User[] | Error> {
+  public async list(query: ListQueryParams): Promise<User[] | Error> {
     try {
-      const { orderBy, order, take, skip } = query as ListQueryParams;
+      const { orderBy, order, size, page } = query;
       const users = await this.db.user.findMany({
         orderBy: { [orderBy]: order },
-        take,
-        skip,
+        take: parseInt(size as any),
+        skip: parseInt(page as any),
       });
       return users as User[];
     } catch (error: any) {
