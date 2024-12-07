@@ -1,14 +1,16 @@
 import { ProductsRepository } from '@/repositories/products.repository';
 import { ProductSchemaType } from '@/schemas/product.schema';
+import { ListQueryParams } from '@/types/query.type';
 import { Product } from '@prisma/client';
 
 export class ProductsService {
   private productsRepository = new ProductsRepository();
 
-  public async list(query = {}): Promise<Product[] | Error> {
+  public async list(query: ListQueryParams): Promise<{ data: Product[] | Error; total: number }> {
     try {
-      const products = await this.productsRepository.list();
-      return products as Product[];
+      const data = await this.productsRepository.list(query);
+      const total = await this.productsRepository.count();
+      return { data, total };
     } catch (error: any) {
       throw new Error(error.message);
     }
