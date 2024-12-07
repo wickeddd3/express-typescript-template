@@ -21,6 +21,14 @@ export class UsersRepository {
     }
   }
 
+  public async count(): Promise<number> {
+    try {
+      return await this.db.user.count();
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+
   public async get(id: number): Promise<User | Error> {
     try {
       const user = await this.db.user.findUnique({
