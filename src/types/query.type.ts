@@ -1,8 +1,8 @@
 export type Order = 'asc' | 'desc';
 
 export type ListQueryParams = {
-  take: number;
-  skip: number;
+  size: number;
+  page: number;
   orderBy: string;
-  order: Order;
+  order: string;
 };

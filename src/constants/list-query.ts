@@ -1,6 +1,6 @@
 export const LIST_QUERY = {
-  take: 10,
-  skip: 0,
+  size: 10,
+  page: 0,
   orderBy: 'createdAt',
   order: 'desc',
 };
