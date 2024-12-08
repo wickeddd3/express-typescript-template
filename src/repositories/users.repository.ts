@@ -1,20 +1,22 @@
 import { prisma } from '@/lib/prisma';
 import { UserSchemaType } from '@/schemas/user.schema';
 import { ListQueryParams } from '@/types/query.type';
+import { excludeFields } from '@/utils/data-transformers';
 import { User } from '@prisma/client';
 
 export class UsersRepository {
   private db = prisma;
 
-  public async list(query: ListQueryParams): Promise<User[] | Error> {
+  public async list(query: ListQueryParams): Promise<Partial<User>[] | Error> {
     try {
       const { orderBy, order, size, page } = query;
-      const users = await this.db.user.findMany({
+      const data = await this.db.user.findMany({
         orderBy: { [orderBy]: order },
         take: parseInt(size as any),
         skip: parseInt(page as any),
       });
-      return users as User[];
+      const users = excludeFields(data, ['password']);
+      return users as Partial<User>[];
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -28,12 +30,13 @@ export class UsersRepository {
     }
   }
 
-  public async get(id: number): Promise<User | Error> {
+  public async get(id: number): Promise<Partial<User>> {
     try {
-      const user = await this.db.user.findUnique({
+      const data = await this.db.user.findUnique({
         where: { id },
       });
-      return user as User;
+      const user = excludeFields(data, ['password']);
+      return user as Partial<User>;
     } catch (error: any) {
       throw new Error(error.message);
     }
