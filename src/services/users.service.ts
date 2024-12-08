@@ -6,6 +6,7 @@ import { UserSchemaType } from '@/schemas/user.schema';
 import { AuthUser } from '@/types/user.type';
 import { ListQueryParams } from '@/types/query.type';
 import { User } from '@prisma/client';
+import { excludeFields } from '@/utils/data-transformers';
 
 export class UsersService {
   private usersRepository = new UsersRepository();
@@ -25,7 +26,7 @@ export class UsersService {
       const token = generateToken(user.id, user.email);
 
       const authUser = {
-        user,
+        user: excludeFields(user, ['password']),
         token,
       };
 
@@ -35,10 +36,11 @@ export class UsersService {
     }
   }
 
-  public async list(query: ListQueryParams): Promise<User[] | Error> {
+  public async list(query: ListQueryParams): Promise<{ data: Partial<User>[] | Error; total: number }> {
     try {
-      const users = await this.usersRepository.list(query);
-      return users as User[];
+      const data = await this.usersRepository.list(query);
+      const total = await this.usersRepository.count();
+      return { data, total };
     } catch (error: any) {
       throw new Error(error.message);
     }
@@ -90,7 +92,7 @@ export class UsersService {
       const token = generateToken(user.id, user.email);
 
       const authUser = {
-        user,
+        user: excludeFields(user, ['password']),
         token,
       };
 
