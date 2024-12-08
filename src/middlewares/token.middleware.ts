@@ -3,6 +3,7 @@ import { Strategy as JwtStrategy, ExtractJwt, VerifiedCallback } from 'passport-
 import { JWT_SECRET } from '@/config/jwt-options';
 import { prisma } from '@/lib/prisma';
 import Token from '@/interfaces/token.interface';
+import { excludeFields } from '@/utils/data-transformers';
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -13,8 +14,9 @@ const callback = async (payload: Token, done: VerifiedCallback) => {
   const user = await prisma.user.findUnique({
     where: { id: payload.id, email: payload.email },
   });
-  if (user) {
-    return done(null, user);
+  const authUser = excludeFields(user, ['password']);
+  if (authUser) {
+    return done(null, authUser);
   } else {
     return done(null, false);
   }
