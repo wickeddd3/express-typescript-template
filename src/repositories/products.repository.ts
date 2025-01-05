@@ -45,7 +45,7 @@ export class ProductsRepository {
     }
   }
 
-  public async create(data: ProductSchemaType): Promise<Product | Error> {
+  public async create(data: ProductSchemaType & { slug: string }): Promise<Product | Error> {
     try {
       const product = await this.db.product.create({
         data: { ...data },
