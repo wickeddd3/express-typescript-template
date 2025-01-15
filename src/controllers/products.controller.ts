@@ -179,6 +179,8 @@ export class ProductsController implements Controller {
           page: parseInt(page as string, 10),
           size: pageSize,
           totalPages: Math.ceil(total / pageSize),
+          orderBy,
+          order,
         },
       });
     } catch (error: any) {
